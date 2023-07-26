@@ -9,6 +9,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selectors.byText;
+import static com.codeborne.selenide.Selectors.withTagAndText;
 import static com.codeborne.selenide.Selenide.*;
 
 public class SelenideRepository {
@@ -40,6 +41,7 @@ public class SelenideRepository {
 
     @Test
     void softAssertionsHaveExampleWithJunit5() {
+        String SoftAssertionText = "SoftAssertion";
         String junit5example = """
                         @ExtendWith({SoftAssertsExtension.class})
                                              class Tests {
@@ -54,7 +56,9 @@ public class SelenideRepository {
                                             }
                 """;
         $("#wiki-tab").click();
-        $$("#wiki-body li a").findBy(text("Soft assertion")).click();
+        $(".wiki-more-pages-link button").click(); // за этой мелочью и приятался нужный элемент :)
+        $(withTagAndText("a", SoftAssertionText)).shouldHave(text(SoftAssertionText));
+        $(withTagAndText("a", SoftAssertionText)).click();
         $$("h4").findBy(text("Using JUnit5 extend test class")).sibling(0).shouldHave(text(junit5example));
     }
 }
