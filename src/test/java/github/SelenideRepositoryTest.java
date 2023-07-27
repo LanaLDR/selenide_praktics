@@ -12,7 +12,7 @@ import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selectors.withTagAndText;
 import static com.codeborne.selenide.Selenide.*;
 
-public class SelenideRepository {
+public class SelenideRepositoryTest {
 
     static {
         ChromeOptions options = new ChromeOptions();

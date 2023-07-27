@@ -7,9 +7,10 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import static com.codeborne.selenide.Condition.*;
+import static com.codeborne.selenide.Selectors.withTagAndText;
 import static com.codeborne.selenide.Selenide.*;
 
-public class SelenideRepositorySearch {
+public class MainPageTest {
 
     static {
         ChromeOptions options = new ChromeOptions();
@@ -18,14 +19,13 @@ public class SelenideRepositorySearch {
         capabilities.setCapability(ChromeOptions.CAPABILITY, options);
         Configuration.browserCapabilities = capabilities;
     }
+
     @Test
-    void shouldFindSelenideRepositoryAtTheTop() {
-        open("https://github.com");
-        $(".search-input").click();
-        $("#query-builder-test").setValue("Selenide").pressEnter();
-        $$("[data-testid=results-list] .search-title").first().click();
-        $("#repository-container-header").shouldHave(text("selenide / selenide"));
+    void enterprisePageOpen() {
+        open("https://github.com/");
+        $(".header-menu-wrapper").$(withTagAndText("button", "Solutions")).hover();
+        $("#solutions-for-heading").sibling(0).$(withTagAndText("a", "Enterprise")).click();
+        $(withTagAndText("h1", "Build like the best")).shouldBe(visible);
+        sleep(5000);
     }
-
-
 }
